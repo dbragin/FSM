@@ -1,0 +1,5 @@
+[{"state":"INIT","signal":"_", "new_state":"A", "action":"INIT->_"},
+{"state":"A","signal":"a", "new_state":"A", "action":"->A->a"},
+{"state":"A","signal":"b", "new_state":"B", "action":"->A->b"},
+{"state":"B","signal":"b", "new_state":"B", "action":"->B->b"},
+{"state":"B","signal":"_", "new_state":"FINISH", "action":"->B->_->END"}]

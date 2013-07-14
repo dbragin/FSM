@@ -1,0 +1,36 @@
+<errors>
+  <date control="2012-06-15T13:05:46.1416724+04:00" />
+  <count>6</count>
+  <list>
+    <error>
+      <description>Не допустимый тип связи</description>
+      <Element></Element>
+      <Link>29576288-c6ea-4acd-be49-0858f4f68e27</Link>
+    </error>
+    <error>
+      <description>Циклическая связь</description>
+      <Element></Element>
+      <Link>829b5952-3afb-4321-a5c2-44d3c6e297ca</Link>
+    </error>
+    <error>
+      <description>Циклическая связь</description>
+      <Element></Element>
+      <Link>f3f245f2-76a4-4ad2-b45d-e97ddf795638</Link>
+    </error>
+    <error>
+      <description>Циклическая связь</description>
+      <Element></Element>
+      <Link>4dcf94b0-88b1-4bfb-ab3a-2c101a6f817a</Link>
+    </error>
+    <error>
+      <description>Двойная связь</description>
+      <Element></Element>
+      <Link>f3f245f2-76a4-4ad2-b45d-e97ddf795638</Link>
+    </error>
+    <error>
+      <description>Двойная связь</description>
+      <Element></Element>
+      <Link>4dcf94b0-88b1-4bfb-ab3a-2c101a6f817a</Link>
+    </error>
+  </list>
+</errors>

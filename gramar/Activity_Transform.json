@@ -1,0 +1,5 @@
+{'wiqa':{"UML_ActivityStartModel":lambda:"A0",
+         "UML_ActivityEndModel":lambda:"Ak",
+         "UML_ActivityActionModel":lambda:"A",
+         "UML_ActivityBranchStartModel":lambda:"P",
+         "UML_ActivityBranchEndModel":lambda:"W"}}
