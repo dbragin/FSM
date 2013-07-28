@@ -1,9 +1,9 @@
 [{"state":"INIT","signal":"A0", "new_state":"r1", "action":"S'"},
 {"state":"r1","signal":"label", "new_state":"r2", "action":"S'"},
 {"state":"r2","signal":"R", "new_state":"r1", "action":"S'<<,S1<rR"},
+{"state":"r2","signal":"L", "new_state":"r1", "action":"S'><,S1>vR"},
 {"state":"r2","signal":"P", "new_state":"r1", "action":"S'<<,S1<vP,S1<vP"},
 {"state":"r2","signal":"W", "new_state":"r1", "action":"S'><,S1>vP"},
-{"state":"r2","signal":"L", "new_state":"r1", "action":"S'><,S1>vR"},
 {"state":"r2","signal":"A", "new_state":"r1", "action":"S'"},
 {"state":"r2","signal":"Ak", "new_state":"FINISH", "action":"S'"}
 ]

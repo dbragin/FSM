@@ -13,33 +13,33 @@ class Diagramm:
 		
     def addLink(self, uid, uidSource, uidTarget):
         try:
-            self.elements[uidSource]['link'].append({'uid':uid,'target':uidTarget})
+            self.elements[uidSource]['link'].append({'uid':uid, 'target':uidTarget})
 	except KeyError:
             self.elements[uidSource]['link'] = []
-            self.elements[uidSource]['link'].append({'uid':uid,'target':uidTarget})
+            self.elements[uidSource]['link'].append({'uid':uid, 'target':uidTarget})
             
     def startWith(self, typeName):
         for k,v in self.elements.items():
-            if v['type'] =='A0':
+            if v['type'] == 'A0':
                 self.startId = k
 
     def __str__(self):
         return 'Start with ' + self.startId.__str__() + '\n' + self.elements.__str__()
 
     def check(self, fsm):
-        process = True
-        tmpDiagram = self.elements.copy()
+	tmpDiagram = self.elements.copy()
         elem = tmpDiagram[self.startId]
-        self.linkStack.append(elem['link'][0])
-        fsm.execute(elem['type'],elem)
-        
+	
+	self.linkStack.append(elem['link'][0])
+	fsm.execute(elem['type'], elem)
+      
+        process = True
         while process:
             try:
                 label = self.linkStack.pop()
                 fsm.execute('label')
-                elem = tmpDiagram[label['target']]
-                a = fsm.execute(elem['type'])
-                print elem['type'], a
+		elem = tmpDiagram[label['target']]
+                a = fsm.execute(elem['type'], elem)
                 if a[:2] == "S'":
                     tmp = None
                     for c in a[2:]:
@@ -49,7 +49,6 @@ class Diagramm:
                         self.linkStack.append(l)
                     if tmp != None :
                         self.linkStack.append(tmp)
-                print "Good"
             except IndexError:
                 print elem
                 self.errors.append({'text':"No links",'id':elem['uid']})
@@ -57,13 +56,16 @@ class Diagramm:
                 pass
             except Exception,e:
                 if elem['type'] == 'Ak':
-                    print 'ok'
                     process = False
                     pass
                 else:
                     print self.linkStack
-                    print "Error",e
-                    self.errors.append({'text': e.__str__(),'id':elem['uid']})
+                    print "Error", e
+		    error = 'Link is missing'
+                    if (e.__str__() == "Not balanced brace"):
+			error = e.__str__()
+                    self.errors.append({'text': error,'id': elem['uid']})
                     process = False
                     pass
         return self.errors
+

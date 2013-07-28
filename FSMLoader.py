@@ -6,7 +6,7 @@ import fsm
 class FSMLoader:
        
     def load(self, name):
-        f = open("./gramar/"+name+".json")
+        f = open("./gramar/" + name + ".json")
         grammar = json.loads(f.read())
         g = fsm.FSM()
         for rule in grammar:

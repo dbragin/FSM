@@ -11,31 +11,44 @@ class memory:
         
 
     def operation(self, action, elem = None):
-        for op in action.split(","):
-            ptr, act = op[:2],op[2:]
-            if ptr != "S'":
+        
+	for operations in action.split(","):
+            ptr, act = operations[:2], operations[2:]
+	    
+	    print "Operation ", operations 
+	    print "Ptr: ", ptr, " Act:", act
+            
+	    if ptr != "S'":
                 try:
                     m = self.storage[ptr]
                 except KeyError:
                     self.storage[ptr] = []
                     m = self.storage[ptr]
-                operation = m.__getattribute__(self.opMatrix[ptr[:1]+act[:1]])
-                if act[1:2] == 'v':
+
+                operation = m.__getattribute__( self.opMatrix[ ptr[:1] + act[:1] ] )
+		print "operation: ", operation
+                
+		if act[1:2] == 'v':
+		    print "v", act[2:]
                     value = act[2:]
-                cnt = 1
+
                 if act[1] == 'r':
-                    cnt = length(elem['link'])
+                    cnt = len(elem['link'])
+		    value = act[2:]
+		    print "r", act[2:], cnt
                     for x in range(cnt):
                         operation(act[2:])
+
                 if act[:1] == '<':
                     if value != None:
                         operation(value)
                     else:
                         operation()
+
                 elif act[:1] == '>':
                     if value != None:
                        if value != operation():
-                           raise RuntimeError('Not balanced brace:' + value)
+                           raise RuntimeError('Not balanced brace')
                     else:
                         operation()
                 

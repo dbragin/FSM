@@ -21,12 +21,19 @@ class FSM:
     def execute(self, signal, elem = None):
         if self.state not in self.states:
             raise RuntimeError("No state")
+	print "-----------------------"
+	print self.debug(True)
+	print "Signal: ", signal, ", Current State: ", self.state
         state = self.states[self.state]
         if signal in state:
             new_state, action = state[signal]
-            self.memory.operation(action,elem)
-            self.state = new_state
-            return action.split(',')[0]
+	    self.memory.operation(action,elem)
+	    self.state = new_state
+	    
+	    print "New state: ", self.state
+	    print "-----------------------"
+            
+	    return action.split(',')[0]
         else:
             raise RuntimeWarning("No edge")
             
@@ -34,8 +41,5 @@ class FSM:
         if not onlyMemory:
             for state in self.states:
                 print state
-            print self.state
         self.memory.debug()
-            
-        
-        
+ 

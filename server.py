@@ -12,10 +12,7 @@ from xml.etree import ElementTree
 
 class MainHandler(tornado.web.RequestHandler):
 	def get(self):
-		p = Popen(['AnalizerUtil'], stdout=PIPE, stderr=PIPE, stdin=PIPE)
-		self.set_header("Content-Type","application/xml")
-		self.write(p.stdout.read())
-
+		self.write("Hellow world!")
 	def post(self):
 		self.set_header("Content-Type","application/xml")
 		s = self.request.body
@@ -38,27 +35,35 @@ class MainHandler(tornado.web.RequestHandler):
 		
 		self.write(xmlParser.XmlUtil.dictToXml(er))
 
-
-class SandboxHandler(tornado.web.RequestHandler):
-
+class TestHandler(tornado.web.RequestHandler):
+	
 	def get(self):
 		self.write("Use only POST request")
 
 	def post(self):
-		self.set_header("Content-Type","application/xml")
-		s = self.request.body
-		probability = float(self.get_argument("probability",0.3))
-		d = xmlParser.XmlUtil.readXml(s)
-		errors = []
-		for el in d.elements:
-			if random.random() < probability : 
-				errors.append({'text': d.elements[el]['type'],'id':el})
-			#for l in d.elements[el]['link']
-		self.write(xmlParser.XmlUtil.dictToXml(errors))
+		self.set_header("Content-Type", "application/xml")
+		typematrix = {"Initial State":lambda:"A0",
+                      "Final State":lambda:"Ak",
+                      "State":lambda:"A",
+                      "Decision":lambda:"P",
+                      "Decision End":lambda:"W",
+                      "Transition (Fork)":lambda:"R",
+                      "Transition (Join)":lambda:"L"
+                      }
+		diagramm = xmlParser.XmlUtil.readXml(self.request.body, typematrix)
+		diagramm.startWith('A0')
+
+		loader = FSMLoader.FSMLoader()
+		fsm = loader.load("Activity")
+
+		errors = diagramm.check(fsm)
+		xmlResponse = xmlParser.XmlUtil.dictToXml(errors)
+		print xmlResponse
+		self.write(xmlResponse)
 
 application = tornado.web.Application([
 	(r"/uml", MainHandler),
-	(r"/sandbox", SandboxHandler),
+	(r"/test", TestHandler),
 ])
 
 if __name__ == "__main__":

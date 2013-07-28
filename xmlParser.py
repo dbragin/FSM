@@ -13,18 +13,18 @@ class XmlUtil:
         else:
           gettype = lambda x:x
 
-        elements = xml.findall(".//*LinkedDiagramElement")
-        for e in elements:
+        elements = xml.findall(".//Element")
+	for e in elements:
             uid = e.find('.//Id').text.strip()
-            elType = gettype(e.get("{http://www.w3.org/2001/XMLSchema-instance}type"))
-            d.addElement(elType,uid)
-
-        links = xml.findall(".//*Link")
+            elType = gettype(e.get("type"))
+            d.addElement(elType, uid)
+        
+	links = xml.findall(".//*Link")
         for l in links:
             uid = l.find('./Id').text.strip()
             sourceUid =  l.find('.//Source/Id').text.strip()
             targetUid =  l.find('.//Sink/Id').text.strip()
-            d.addLink(uid,sourceUid,targetUid)
+            d.addLink(uid, sourceUid, targetUid)
         
         return d
 
